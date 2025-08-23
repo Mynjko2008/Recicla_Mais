@@ -1,0 +1,119 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body */
+body {
+    background-color: #F6F7F8;
+    color: #1C1C1C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1em;
+}
+
+/* Form */
+form {
+    background-color: #FFFFFF;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+form h2 {
+    color: #0E5E4D;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+form p {
+    color: #388E3C;
+    margin-bottom: 1.5em;
+}
+
+/* Labels */
+form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5em;
+    color: #1C1C1C;
+    font-weight: bold;
+}
+
+/* Inputs */
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 0.8em;
+    margin-bottom: 1.5em;
+    border: 1px solid #ABCCC2;
+    border-radius: 10px;
+    font-size: 1em;
+    color: #1C1C1C;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus {
+    border-color: #0E5E4D;
+    outline: none;
+}
+
+.senha-container {
+    position: relative;
+}
+
+.senha-container .toggle-password {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Submit Button */
+.btn-form {
+    background-color: #0E5E4D;
+    color: #FFFFFF;
+    padding: 0.8em 2em;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-form:hover {
+    background-color: #094236;
+    transform: scale(1.05);
+}
+
+/* Links */
+.cadastro-link,
+.esqueceu-link {
+    margin-top: 1em;
+    display: block;
+    color: #2B6CB0;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
+}
+
+.cadastro-link:hover,
+.esqueceu-link:hover {
+    color: #094236;
+}

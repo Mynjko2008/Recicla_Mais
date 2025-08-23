@@ -1,5 +1,5 @@
 /**
- * main.js - Script principal do site Reclica+
+ * main.js - Script principal do site Recicla+
  * Responsável pelos comportamentos interativos do site
  */
 
