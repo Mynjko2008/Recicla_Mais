@@ -1,74 +1,152 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    const emailInput = document.getElementById('input-email');
-    const passwordInput = document.getElementById('input-password');
-    const cadastroLink = document.querySelector('.cadastro-link');
+/**
+ * login.js - Script para a página de login do Recicla+
+ * Responsável pela validação do formulário, exibição de erros e interações
+ */
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Elementos do formulário
+    const form = document.getElementById('login-form');
+    const email = document.getElementById('input-email');
+    const senha = document.getElementById('input-password');
+
+    // Elementos de erro
+    const emailError = document.getElementById('email-error');
+    const senhaError = document.getElementById('senha-error');
 
     // Mostrar/ocultar senha
-    document.querySelectorAll('.toggle-password').forEach(icon => {
-        icon.addEventListener('click', () => {
-            const targetInput = document.getElementById(icon.getAttribute('data-target'));
-            const isPassword = targetInput.type === 'password';
-            targetInput.type = isPassword ? 'text' : 'password';
-            icon.classList.toggle('fa-eye');
-            icon.classList.toggle('fa-eye-slash');
+    document.querySelectorAll('.toggle-password').forEach(function (icon) {
+        icon.addEventListener('click', function () {
+            const targetId = this.getAttribute('data-target');
+            const target = document.getElementById(targetId);
+
+            // Alterna o tipo de input entre password e text
+            const isPassword = target.type === 'password';
+            target.type = isPassword ? 'text' : 'password';
+
+            // Alterna o ícone entre olho e olho riscado
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
         });
     });
 
-    // Envio do formulário
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Validação do email em tempo real (quando o usuário sai do campo)
+    email.addEventListener('blur', function () {
+        if (!validarEmail(email.value)) {
+            emailError.textContent = 'Por favor, insira um e-mail válido';
+        } else {
+            emailError.textContent = '';
+        }
+    });
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailInput.value)) {
-            alert('Por favor, insira um e-mail válido.');
-            return;
+    // Validação e envio do formulário
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        let isValid = true;
+
+        // Limpar mensagens de erro
+        emailError.textContent = '';
+        senhaError.textContent = '';
+
+        // Validar email
+        if (!validarEmail(email.value)) {
+            emailError.textContent = 'Por favor, insira um e-mail válido';
+            isValid = false;
         }
 
-        const passwordValue = passwordInput.value.trim();
-        if (passwordValue === '') {
-            alert('Por favor, insira sua senha.');
-            return;
+        // Validar senha
+        if (senha.value.trim() === '') {
+            senhaError.textContent = 'Por favor, insira sua senha';
+            isValid = false;
         }
 
+        // Se o formulário não for válido, não prosseguir
+        if (!isValid) return;
+
+        // Preparar dados do formulário
         const formData = new FormData(form);
 
-        try {
-            const response = await fetch('../Back-end/login.php', {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.text();
-            handleResponse(data.trim());
-        } catch (error) {
-            console.error('Erro na requisição:', error);
-            alert('Erro de conexão com o servidor.');
-        }
-    });
+        // Mostrar estado de "Entrando..."
+        const btnForm = document.querySelector('.btn-form');
+        const btnText = btnForm.textContent;
+        btnForm.textContent = 'Entrando...';
+        btnForm.disabled = true;
 
-    // Função para lidar com a resposta do servidor
-    const handleResponse = (response) => {
-        switch (response) {
-            case 'success':
-                alert('✅ Login realizado com sucesso!');
+        // Requisição para o servidor
+        fetch('../Back-end/login.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                // Restaurar botão
+                btnForm.textContent = btnText;
+                btnForm.disabled = false;
+
+                // Tratar resposta do servidor
+                switch (data.trim()) {
+                    case 'success':
+                        // Criar elemento para mensagem de sucesso
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'success-message';
+                        successMessage.textContent = '✅ Login realizado com sucesso! Redirecionando...';
+                        
+                        // Inserir antes do botão
+                        form.insertBefore(successMessage, btnForm.parentNode);
+
+                        // Redirecionar após delay
+                        setTimeout(() => {
+                            window.location.href = 'home.html'; // pode trocar para dashboard futuramente
+                        }, 2000);
+                        break;
+
+                    case 'senha_incorreta':
+                        senhaError.textContent = 'Senha incorreta';
+                        break;
+
+                    case 'usuario_nao_encontrado':
+                        emailError.textContent = 'Usuário não encontrado';
+                        break;
+
+                    default:
+                        // Criar elemento para mensagem de erro inesperado
+                        const errorMessage = document.createElement('div');
+                        errorMessage.className = 'error-server';
+                        errorMessage.textContent = 'Erro inesperado: ' + data;
+
+                        // Inserir antes do botão
+                        form.insertBefore(errorMessage, btnForm.parentNode);
+
+                        // Remover após 5 segundos
+                        setTimeout(() => {
+                            errorMessage.remove();
+                        }, 5000);
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+
+                // Restaurar botão
+                btnForm.textContent = btnText;
+                btnForm.disabled = false;
+
+                // Criar elemento para erro de conexão
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-server';
+                errorMessage.textContent = 'Erro de conexão com o servidor. Tente novamente mais tarde.';
+
+                // Inserir antes do botão
+                form.insertBefore(errorMessage, btnForm.parentNode);
+
+                // Remover após 5 segundos
                 setTimeout(() => {
-                    window.location.href = 'home.html'; // pode ir para dashboard depois
-                }, 500);
-                break;
-            case 'senha_incorreta':
-                alert('❌ Senha incorreta.');
-                break;
-            case 'usuario_nao_encontrado':
-                alert('❌ Usuário não encontrado.');
-                break;
-            default:
-                alert('Erro inesperado: ' + response);
-        }
-    };
-
-    // Link cadastro
-    cadastroLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = 'cadastro.html';
+                    errorMessage.remove();
+                }, 5000);
+            });
     });
+
+    // Função para validar formato de email
+    function validarEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 });
