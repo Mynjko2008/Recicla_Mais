@@ -1,0 +1,274 @@
+/*
+Recicla+ - Página de Recuperar Senha
+esqueceu.css - Estilos para a página de recuperação de senha
+*/
+
+/* ==================== VARIÁVEIS E RESET ==================== */
+:root {
+  --primary-color: #0e5e4d;
+  --primary-light: #44bba4;
+  --primary-dark: #094236;
+  --secondary-color: #2e7d32;
+  --secondary-light: #388e3c;
+  --accent-color: #a7f3d0;
+  --dark-text: #1c1c1c;
+  --light-text: #f6f7f8;
+  --bg-light: #f6f7f8;
+  --bg-medium: #f5f5f5;
+  --border-color: #abccc2;
+  --error-color: #e53e3e;
+  --success-color: #38a169;
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --radius-md: 10px;
+  --radius-lg: 15px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-light);
+  color: var(--dark-text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* ==================== CONTAINER ==================== */
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.form-container {
+  width: 60%;
+  padding: 2.5rem;
+}
+
+.image-container {
+  width: 40%;
+  background-image: url("img/recycling-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(14, 94, 77, 0.8),
+    rgba(46, 125, 50, 0.7)
+  );
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo img {
+  width: 75px;
+  height: auto;
+}
+
+/* ==================== FORM ==================== */
+form {
+  animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+form h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.form-subtitle {
+  color: var(--secondary-light);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+input[type="email"] {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  color: var(--dark-text);
+  transition: border-color var(--transition-fast);
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(14, 94, 77, 0.2);
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+.error-message {
+  display: block;
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  height: 1rem;
+}
+
+/* ==================== BUTTON ==================== */
+.btn-form {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 0.9rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-normal), transform var(--transition-fast);
+}
+
+.btn-form:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-form:active {
+  transform: translateY(0);
+}
+
+/* ==================== FOOTER ==================== */
+.form-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #6b7280;
+}
+
+.login-link {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.login-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column-reverse;
+    max-width: 480px;
+  }
+
+  .form-container,
+  .image-container {
+    width: 100%;
+  }
+
+  .image-container {
+    height: 160px;
+  }
+}
+
+@media (max-width: 600px) {
+  body { padding: 1rem; }
+  .form-container { padding: 1.5rem; }
+  form h2 { font-size: 1.75rem; }
+  .image-container { height: 130px; }
+}
+
+
+
+/* ==================== MENSAGENS DE FEEDBACK ==================== */
+.success-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background-color: #c6f6d5;
+  color: var(--success-color);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.error-server {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background-color: #fed7d7;
+  color: var(--error-color);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+
+/* ==================== BOTÃO COM LOADING ==================== */
+.btn-form.loading {
+  position: relative;
+  color: transparent !important; /* Esconde o texto */
+  pointer-events: none;
+}
+
+.btn-form.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

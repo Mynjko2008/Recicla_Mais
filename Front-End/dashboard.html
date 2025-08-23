@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reclica+ | Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="https://kit.fontawesome.com/6b97982313.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="img/Logo-colorida.png" alt="Reclica+ Logo">
+        <span>Reclica+</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="registro.html">Registro</a></li>
+        <li><a href="mapa.html">Mapa</a></li>
+        <li><a href="calculadora.html">Calculadora</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main id="dashboard" class="main-section">
+    <div class="container">
+
+      <!-- Título -->
+      <h1 class="page-title"><i class="fa-solid fa-chart-pie"></i> Dashboard</h1>
+      <p class="page-desc">Bem-vindo(a)! Aqui você acompanha seu desempenho na reciclagem, impacto ambiental e acessa rapidamente todas as funcionalidades.</p>
+
+      <!-- Cards Resumo -->
+      <div class="cards-resumo">
+        <div class="card-resumo">
+          <i class="fa-solid fa-recycle"></i>
+          <h3>120 kg</h3>
+          <p>Resíduos reciclados</p>
+        </div>
+        <div class="card-resumo">
+          <i class="fa-solid fa-seedling"></i>
+          <h3>35 kg</h3>
+          <p>CO₂ evitado</p>
+        </div>
+        <div class="card-resumo">
+          <i class="fa-solid fa-ranking-star"></i>
+          <h3>5º lugar</h3>
+          <p>Sua posição no ranking</p>
+        </div>
+      </div>
+
+      <!-- Gráficos -->
+      <div class="graficos">
+        <div class="grafico">
+          <h3>Tipos de resíduos descartados</h3>
+          <canvas id="graficoPizza"></canvas>
+        </div>
+        <div class="grafico">
+          <h3>Descarte por mês</h3>
+          <canvas id="graficoBarra"></canvas>
+        </div>
+      </div>
+
+      <!-- Atalhos -->
+      <h2 class="subtitulo">Funcionalidades</h2>
+      <div class="atalhos">
+        <a href="registro.html" class="atalho"><i class="fa-solid fa-clipboard-list"></i> Registro</a>
+        <a href="mapa.html" class="atalho"><i class="fa-solid fa-map-location-dot"></i> Mapa</a>
+        <a href="calculadora.html" class="atalho"><i class="fa-solid fa-calculator"></i> Calculadora</a>
+        <a href="ranking.html" class="atalho"><i class="fa-solid fa-trophy"></i> Ranking</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Reclica+ | Todos os direitos reservados</p>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

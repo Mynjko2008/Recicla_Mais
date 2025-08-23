@@ -1,0 +1,223 @@
+/* ==================== RESET E CONFIGURAÇÕES GERAIS ==================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+:root {
+  --primary-color: #0e5e4d;
+  --primary-light: #44bba4;
+  --primary-dark: #094236;
+  --secondary-color: #2e7d32;
+  --secondary-light: #388e3c;
+  --accent-color: #a7f3d0;
+  --dark-text: #1c1c1c;
+  --light-text: #f6f7f8;
+  --bg-light: #f6f7f8;
+  --bg-medium: #f5f5f5;
+  --border-color: #abccc2;
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --radius-sm: 7px;
+  --radius-md: 10px;
+  --radius-lg: 15px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Altura do header para scroll suave */
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-light);
+  color: var(--dark-text);
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ==================== HEADER ==================== */
+header {
+  background-color: var(--primary-color);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img {
+  width: 3rem;
+  height: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: var(--light-text);
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-light);
+}
+
+/* ==================== MAIN ==================== */
+.main-section {
+  padding: 2rem 0;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.page-desc {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cards-resumo {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
+.card-resumo {
+  background-color: var(--bg-medium);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal);
+}
+
+.card-resumo:hover {
+  transform: translateY(-5px);
+}
+
+.card-resumo i {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.card-resumo h3 {
+  font-size: 2rem;
+  color: var(--dark-text);
+}
+
+.card-resumo p {
+  color: var(--secondary-color);
+}
+
+/* ==================== GRÁFICOS ==================== */
+.graficos {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.grafico {
+  flex: 1;
+  margin: 0 1rem;
+  background-color: var(--bg-medium);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.grafico h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ==================== ATALHOS ==================== */
+.atalhos {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.atalho {
+  background-color: var(--primary-light);
+  color: var(--light-text);
+  padding: 1rem 2rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: background-color var(--transition-normal);
+}
+
+.atalho:hover {
+  background-color: var(--primary-dark);
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+@media (max-width: 768px) {
+  .cards-resumo {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .graficos {
+    flex-direction: column;
+  }
+
+  .grafico {
+    margin: 1rem 0;
+  }
+
+  .atalhos {
+    flex-direction: column;
+  }
+}
