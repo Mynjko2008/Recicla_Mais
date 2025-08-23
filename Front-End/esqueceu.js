@@ -6,13 +6,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Elementos do formulário
   const form = document.getElementById("redefinicao-senha-form");
-  const nome = document.getElementById("input-nome");
   const email = document.getElementById("input-email");
   const senha = document.getElementById("input-senha");
   const confirmarSenha = document.getElementById("input-confirmar-senha");
 
   // Elementos de erro
-  const nomeError = document.getElementById("nome-error");
   const emailError = document.getElementById("email-error");
   const senhaError = document.getElementById("senha-error");
   const confirmarSenhaError = document.getElementById("confirmar-senha-error");
@@ -111,16 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let isValid = true;
 
     // Limpar mensagens de erro
-    nomeError.textContent = "";
     emailError.textContent = "";
     senhaError.textContent = "";
     confirmarSenhaError.textContent = "";
-
-    // Validar nome
-    if (nome.value.trim() === "") {
-      nomeError.textContent = "Por favor, preencha o nome completo";
-      isValid = false;
-    }
 
     // Validar email
     if (!validarEmail(email.value)) {
@@ -168,8 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const btnText = btnForm.textContent;
       btnForm.textContent = "Redefinindo...";
       btnForm.disabled = true;
-
-      fetch("", {
+      fetch("../Back-end/redefinir.php", {
         method: "POST",
         body: formData,
       })
@@ -191,25 +181,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Redirecionar após delay
             setTimeout(() => {
-              window.location.href = "";
+              window.location.href = "login.html";
             }, 2000);
           } else {
             // Tratar erros do servidor
-            if (data.includes("email")) {
-              emailError.textContent = "Este e-mail já está cadastrado";
-            } else {
-              // Criar elemento para mensagem de erro
+            if (data.trim() === "usuario_nao_encontrado") {
+              emailError.textContent =
+                "❌ Nenhum usuário encontrado com esse e-mail.";
+            } else if (data.trim() === "erro_atualizar_senha") {
               const errorMessage = document.createElement("div");
               errorMessage.className = "error-server";
-              errorMessage.textContent = "Erro: " + data;
-
-              // Inserir antes do botão
+              errorMessage.textContent =
+                "⚠️ Ocorreu um erro ao atualizar sua senha. Tente novamente.";
               form.insertBefore(errorMessage, btnForm.parentNode);
-
-              // Remover após 5 segundos
-              setTimeout(() => {
-                errorMessage.remove();
-              }, 5000);
+              setTimeout(() => errorMessage.remove(), 5000);
+            } else {
+              const errorMessage = document.createElement("div");
+              errorMessage.className = "error-server";
+              errorMessage.textContent = "Erro inesperado: " + data;
+              form.insertBefore(errorMessage, btnForm.parentNode);
+              setTimeout(() => errorMessage.remove(), 5000);
             }
           }
         })
