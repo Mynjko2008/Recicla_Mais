@@ -227,6 +227,7 @@ header.scrolled {
   align-items: center;
   justify-content: space-between;
   padding: 2rem 0;
+  gap: 4rem;
 }
 
 .containerPlaneta {
