@@ -3,16 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reclica+ | Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css" />
+    <title>Recicla+ | Mapa de Pontos de Coleta</title>
+    <link rel="stylesheet" href="mapa.css" />
     <script
       src="https://kit.fontawesome.com/6b97982313.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   </head>
   <body>
-    <!-- HEADER -->
     <header id="header">
       <div class="navegacao container">
         <div class="logo">
@@ -44,69 +45,44 @@
       </div>
     </header>
 
-    <!-- MAIN -->
-    <main id="dashboard" class="main-section">
+    <main class="main-section">
       <div class="container">
-        <!-- Título -->
         <h1 class="page-title">
-          <i class="fa-solid fa-chart-pie"></i> Dashboard
+          <i class="fa-solid fa-map-location-dot"></i> Mapa de Pontos de Coleta
         </h1>
         <p class="page-desc">
-          Bem-vindo(a)! Aqui você acompanha seu desempenho na reciclagem,
-          impacto ambiental e acessa rapidamente todas as funcionalidades.
+          Visualize os locais de coleta disponíveis e filtre por categoria de
+          resíduo.
         </p>
 
-        <!-- Cards Resumo -->
-        <div class="cards-resumo">
-          <div class="card-resumo">
-            <i class="fa-solid fa-recycle"></i>
-            <h3>120 kg</h3>
-            <p>Resíduos reciclados</p>
-          </div>
-          <div class="card-resumo">
-            <i class="fa-solid fa-seedling"></i>
-            <h3>35 kg</h3>
-            <p>CO₂ evitado</p>
-          </div>
-          <div class="card-resumo">
-            <i class="fa-solid fa-ranking-star"></i>
-            <h3>5º lugar</h3>
-            <p>Sua posição no ranking</p>
-          </div>
+        <!-- Filtro -->
+        <div class="form-group filtro">
+          <label for="filtroCategoria">Filtrar por categoria:</label>
+          <select id="filtroCategoria">
+            <option value="todos">Todos</option>
+            <option value="Plástico">Plástico</option>
+            <option value="Papel">Papel</option>
+            <option value="Vidro">Vidro</option>
+            <option value="Metal">Metal</option>
+            <option value="Orgânico">Orgânico</option>
+            <option value="Eletrônico">Eletrônico</option>
+          </select>
         </div>
 
-        <!-- Gráficos -->
-        <div class="graficos">
-          <div class="grafico">
-            <h3>Tipos de resíduos descartados</h3>
-            <canvas id="graficoPizza"></canvas>
-          </div>
-          <div class="grafico">
-            <h3>Descarte por mês</h3>
-            <canvas id="graficoBarra"></canvas>
-          </div>
+        <div class="form-group filtro">
+          <label for="filtroNome">Buscar por nome:</label>
+          <input
+            type="text"
+            id="filtroNome"
+            placeholder="Digite o nome do ponto..."
+          />
         </div>
 
-        <!-- Atalhos -->
-        <h2 class="subtitulo">Funcionalidades</h2>
-        <div class="atalhos">
-          <a href="registro.html" class="atalho"
-            ><i class="fa-solid fa-clipboard-list"></i> Registro</a
-          >
-          <a href="mapa.html" class="atalho"
-            ><i class="fa-solid fa-map-location-dot"></i> Mapa</a
-          >
-          <a href="calculadora.html" class="atalho"
-            ><i class="fa-solid fa-calculator"></i> Calculadora</a
-          >
-          <a href="ranking.html" class="atalho"
-            ><i class="fa-solid fa-trophy"></i> Ranking</a
-          >
-        </div>
+        <!-- Mapa -->
+        <div id="map"></div>
       </div>
     </main>
 
-    <!-- FOOTER -->
     <footer>
       <div class="container">
         <div class="footer-content">
@@ -139,6 +115,6 @@
       </div>
     </footer>
 
-    <script src="dashboard.js"></script>
+    <script src="mapa.js"></script>
   </body>
 </html>
