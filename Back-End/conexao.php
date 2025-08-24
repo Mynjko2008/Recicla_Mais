@@ -10,8 +10,5 @@ $conn = new mysqli($host, $user, $pass, $db);
 // Verificar conexão
 if ($conn->connect_error) {
     die("❌ Conexão falhou: " . $conn->connect_error);
-} else {
-    // Opcional: exibir só em debug
-    // echo "✅ Conexão bem-sucedida!";
 }
 ?>

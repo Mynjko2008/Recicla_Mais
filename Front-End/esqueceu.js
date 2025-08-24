@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const btnText = btnForm.textContent;
       btnForm.textContent = "Redefinindo...";
       btnForm.disabled = true;
-      fetch("../Back-end/redefinir.php", {
+      fetch("../Back-end/redefinir_senha.php", {
         method: "POST",
         body: formData,
       })
