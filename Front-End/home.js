@@ -1,5 +1,5 @@
 /**
- * main.js - Script principal do site Recicla+
+ * home.js - Script principal do site Recicla+
  * Responsável pelos comportamentos interativos do site
  */
 
@@ -39,63 +39,8 @@ function handleScroll() {
   }
 }
 
-// Inicializar o Swiper para o carrossel de categorias
-function initSwiper() {
-  let swiperOptions = {
-    slidesPerView: 'auto',
-    spaceBetween: 20,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 2,
-        spaceBetween: 10
-      },
-      480: {
-        slidesPerView: 3,
-        spaceBetween: 15
-      },
-      768: {
-        slidesPerView: 4,
-        spaceBetween: 20
-      },
-      1024: {
-        slidesPerView: 5,
-        spaceBetween: 20
-      }
-    }
-  };
-  
-  // Inicializar apenas se o elemento existir
-  const swiperEl = document.querySelector('.mySwiperCategorias');
-  if (swiperEl) {
-    new Swiper('.mySwiperCategorias', swiperOptions);
-  }
-}
 
-// Configurar o Intersection Observer para animação dos boxes
-function setupBoxAnimations() {
-  const observerOptions = {
-    threshold: 0.3,
-    rootMargin: '0px 0px -50px 0px'
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('appear');
-        // Opcional: pare de observar depois que a animação ocorrer
-        // observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-  
-  boxes.forEach(box => {
-    observer.observe(box);
-  });
-}
+
 
 // Inicializar todos os comportamentos quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
