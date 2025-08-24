@@ -293,21 +293,120 @@ div.enabled {
 }
 
 /* ==================== MEDIA QUERIES ==================== */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  /* Ajustes para tablets grandes */
+  .main-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .page-desc {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
   .cards-resumo {
+    justify-content: center;
+  }
+
+  .card-resumo {
+    flex: 1 1 250px;
+    padding: 1.2rem;
+  }
+
+  .card-resumo i {
+    font-size: 2rem;
+  }
+
+  .card-resumo h3 {
+    font-size: 1.3rem;
+  }
+
+  .grafico {
+    flex: 1 1 280px;
+    padding: 0.8rem;
+  }
+
+  .atalho {
+    flex: 1 1 140px;
+    padding: 0.8rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ajustes para tablets e celulares maiores */
+  .cards-resumo,
+  .graficos,
+  .atalhos {
     flex-direction: column;
     align-items: center;
   }
 
-  .graficos {
-    flex-direction: column;
+  .card-resumo,
+  .grafico,
+  .atalho {
+    max-width: 90%;
+    margin: 0.8rem auto;
   }
 
-  .grafico {
-    margin: 1rem 0;
+  .card-resumo i {
+    font-size: 1.8rem;
   }
 
-  .atalhos {
+  .card-resumo h3 {
+    font-size: 1.2rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .page-desc {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajustes para celulares pequenos */
+  header .navegacao {
     flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .page-desc {
+    font-size: 0.9rem;
+  }
+
+  .card-resumo i {
+    font-size: 1.5rem;
+  }
+
+  .card-resumo h3 {
+    font-size: 1.1rem;
+  }
+
+  .card-resumo p {
+    font-size: 0.9rem;
+  }
+
+  .grafico h3 {
+    font-size: 1.1rem;
+  }
+
+  .atalho {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .btn-1 {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
   }
 }

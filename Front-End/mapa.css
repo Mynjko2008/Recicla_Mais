@@ -103,3 +103,117 @@
   background: #fff;
   border: 1px solid var(--border-color);
 }
+
+/* ==================== MEDIA QUERIES ==================== */
+@media (max-width: 1024px) {
+  /* Ajustes para tablets grandes */
+  .main-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    gap: 0.5rem;
+  }
+
+  .page-desc {
+    font-size: 1rem;
+  }
+
+  .filtros-container {
+    gap: 0.8rem;
+  }
+
+  .filtro {
+    flex: 1 1 180px;
+    min-width: 140px;
+  }
+
+  .filtro select,
+  .filtro input {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  #map {
+    height: 450px;
+  }
+
+  .leaflet-popup-content {
+    font-size: 0.9rem;
+  }
+
+  .leaflet-popup-content b {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ajustes para tablets e celulares médios */
+  .main-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .page-desc {
+    font-size: 0.95rem;
+  }
+
+  .filtros-container {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .filtro {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
+
+  #map {
+    height: 400px;
+  }
+
+  .leaflet-popup-content {
+    font-size: 0.88rem;
+  }
+
+  .leaflet-popup-content b {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajustes para celulares pequenos */
+  .main-section {
+    padding: 2rem 0.8rem;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .page-desc {
+    font-size: 0.9rem;
+  }
+
+  .filtro select,
+  .filtro input {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  #map {
+    height: 350px;
+  }
+
+  .leaflet-popup-content {
+    font-size: 0.85rem;
+  }
+
+  .leaflet-popup-content b {
+    font-size: 0.9rem;
+  }
+}

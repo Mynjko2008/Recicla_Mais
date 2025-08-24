@@ -82,3 +82,69 @@ select, input {
   margin-bottom: 1rem;
   font-size: 1.5rem; /* Ajustado para um tamanho de fonte mais apropriado */
 }
+
+/* Responsividade para telas até 768px (tablets e celulares) */
+@media (max-width: 768px) {
+  .main-section {
+    padding: 3rem 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  .page-desc {
+    font-size: 1rem;
+  }
+
+  .calc-form {
+    padding: 1.5rem;
+    max-width: 100%;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  select, input {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-form {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .resultado {
+    padding: 1.5rem;
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .resultado h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Ajustes adicionais para telas muito pequenas (até 480px) */
+@media (max-width: 480px) {
+  .main-section {
+    padding: 2rem 1rem;
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+  }
+
+  .page-desc {
+    font-size: 0.9rem;
+  }
+
+  .btn-form {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .resultado h2 {
+    font-size: 1.1rem;
+  }
+}

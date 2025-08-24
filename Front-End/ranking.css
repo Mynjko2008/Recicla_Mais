@@ -69,3 +69,93 @@
   color: var(--secondary-color);
   margin-bottom: 0.5rem;
 }
+
+
+/* ==================== MEDIA QUERIES ==================== */
+@media (max-width: 1024px) {
+  /* Ajustes para tablets grandes */
+  .main-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    gap: 0.5rem;
+  }
+
+  .page-desc {
+    font-size: 1rem;
+  }
+
+  #rankingTable th,
+  #rankingTable td {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .user-highlight {
+    padding: 1.2rem;
+  }
+
+  .user-highlight h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ajustes para tablets e celulares médios */
+  .main-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .page-desc {
+    font-size: 0.95rem;
+  }
+
+  #rankingTable th,
+  #rankingTable td {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .user-highlight {
+    padding: 1rem;
+  }
+
+  .user-highlight h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajustes para celulares pequenos */
+  .main-section {
+    padding: 2rem 0.8rem;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .page-desc {
+    font-size: 0.9rem;
+  }
+
+  #rankingTable th,
+  #rankingTable td {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .user-highlight {
+    padding: 0.8rem;
+  }
+
+  .user-highlight h2 {
+    font-size: 1.1rem;
+  }
+}
