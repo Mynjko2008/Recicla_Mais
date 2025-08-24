@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Redirecionar após delay
                         setTimeout(() => {
-                            window.location.href = 'home.html'; // pode trocar para dashboard futuramente
+                            window.location.href = 'dashboard.html'; 
                         }, 2000);
                         break;
 
