@@ -9,8 +9,30 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
 
-  let marker;
+  // 🔹 Pontos de coleta (do arquivo mapa.js)
+  const pontos = [
+    { nome: "Ponto de Coleta Central", categoria: "Plástico", coords: [-23.5505, -46.6333] },
+    { nome: "Ecoponto Norte", categoria: "Vidro", coords: [-23.5405, -46.6233] },
+    { nome: "Ecoponto Sul", categoria: "Metal", coords: [-23.5605, -46.6433] },
+    { nome: "Ponto Verde Leste", categoria: "Orgânico", coords: [-23.5455, -46.6533] },
+    { nome: "Ponto Eletrônicos Oeste", categoria: "Eletrônico", coords: [-23.5555, -46.6633] },
+    { nome: "Ecoponto Zona Oeste", categoria: "Plástico", coords: [-23.5655, -46.6733] },
+    { nome: "Recicla+ Norte", categoria: "Papel", coords: [-23.5355, -46.6133] },
+    { nome: "Ecoponto Jardim Sul", categoria: "Vidro", coords: [-23.5705, -46.6533] },
+    { nome: "Coleta Parque Leste", categoria: "Metal", coords: [-23.5555, -46.6233] },
+    { nome: "Central Orgânicos", categoria: "Orgânico", coords: [-23.5400, -46.6400] },
+    { nome: "Recicla Tech", categoria: "Eletrônico", coords: [-23.5600, -46.6200] }
+  ];
 
+  // Adiciona os marcadores fixos no mapa
+  pontos.forEach(p => {
+    L.marker(p.coords)
+      .bindPopup(`<b>${p.nome}</b><br>Categoria: ${p.categoria}`)
+      .addTo(map);
+  });
+
+  // 🔹 Marcador temporário para quando o usuário clica
+  let marker;
   map.on("click", function(e) {
     const { lat, lng } = e.latlng;
     if (marker) {
@@ -41,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     tabela.appendChild(row);
 
+    // Resetar formulário
     form.reset();
     localInput.value = "";
     if (marker) {
