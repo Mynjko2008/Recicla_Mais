@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
 
-  // 🔹 Pontos de coleta (do arquivo mapa.js)
+  // Pontos de coleta fixos
   const pontos = [
     { nome: "Ponto de Coleta Central", categoria: "Plástico", coords: [-23.5505, -46.6333] },
     { nome: "Ecoponto Norte", categoria: "Vidro", coords: [-23.5405, -46.6233] },
@@ -24,50 +24,85 @@ document.addEventListener("DOMContentLoaded", () => {
     { nome: "Recicla Tech", categoria: "Eletrônico", coords: [-23.5600, -46.6200] }
   ];
 
-  // Adiciona os marcadores fixos no mapa
   pontos.forEach(p => {
     L.marker(p.coords)
       .bindPopup(`<b>${p.nome}</b><br>Categoria: ${p.categoria}`)
       .addTo(map);
   });
 
-  // 🔹 Marcador temporário para quando o usuário clica
+  // Marcador temporário ao clicar no mapa
   let marker;
-  map.on("click", function(e) {
+  map.on("click", (e) => {
     const { lat, lng } = e.latlng;
-    if (marker) {
-      map.removeLayer(marker);
-    }
+    if (marker) map.removeLayer(marker);
     marker = L.marker([lat, lng]).addTo(map);
     localInput.value = `Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
   });
 
+  // Função para formatar data YYYY-MM-DD → DD/MM/YYYY
+  const formatarData = (dataStr) => {
+    const [ano, mes, dia] = dataStr.split("-");
+    return `${dia}/${mes}/${ano}`;
+  };
+
+  // Função para popular a tabela
+  const carregarHistorico = () => {
+    fetch("../Back-End/registro.php?acao=buscar")
+      .then(res => res.json())
+      .then(data => {
+        if (data.sucesso && data.registros) {
+          tabela.innerHTML = "";
+          // Ordena decrescente pela data
+          data.registros.sort((a, b) => new Date(b.data) - new Date(a.data));
+          data.registros.forEach(r => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${r.categoria}</td>
+              <td>${r.quantidade}</td>
+              <td>${r.unidade}</td>
+              <td>${r.local}</td>
+              <td>${formatarData(r.data)}</td>
+            `;
+            tabela.appendChild(row);
+          });
+        } else {
+          console.warn("Nenhum registro encontrado.");
+        }
+      })
+      .catch(err => console.error("Erro ao carregar histórico:", err));
+  };
+
   // Submeter formulário
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    const formData = new FormData(form);
 
-    const categoria = document.getElementById("categoria").selectedOptions[0].text;
-    const quantidade = document.getElementById("quantidade").value;
-    const unidade = document.getElementById("unidade").value;
-    const local = localInput.value;
-    const data = document.getElementById("data").value;
+    fetch("../Back-End/registro.php", { method: "POST", body: formData })
+      .then(res => res.json())
+      .then(data => {
+        if (data.sucesso) {
+          // Insere registro no topo da tabela
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${data.registro.categoria}</td>
+            <td>${data.registro.quantidade}</td>
+            <td>${data.registro.unidade}</td>
+            <td>${data.registro.local}</td>
+            <td>${formatarData(data.registro.data)}</td>
+          `;
+          tabela.prepend(row);
 
-    // Adicionar na tabela
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${categoria}</td>
-      <td>${quantidade}</td>
-      <td>${unidade}</td>
-      <td>${local}</td>
-      <td>${data}</td>
-    `;
-    tabela.appendChild(row);
-
-    // Resetar formulário
-    form.reset();
-    localInput.value = "";
-    if (marker) {
-      map.removeLayer(marker);
-    }
+          // Resetar formulário e mapa
+          form.reset();
+          localInput.value = "";
+          if (marker) map.removeLayer(marker);
+        } else {
+          alert("Erro: " + data.mensagem);
+        }
+      })
+      .catch(err => console.error("Erro no registro:", err));
   });
+
+  // Carregar histórico ao abrir a página
+  carregarHistorico();
 });
