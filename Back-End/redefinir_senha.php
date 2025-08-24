@@ -28,7 +28,7 @@ if ($result->num_rows === 1) {
     if ($stmtUpdate->affected_rows > 0) {
         echo "success";
     } else {
-        echo "nenhuma_alteracao";
+        echo "erro_atualizar_senha";
     }
 
     $stmtUpdate->close();
