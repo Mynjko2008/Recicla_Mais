@@ -1,0 +1,71 @@
+@import url('dashboard.css');
+
+.main-section {
+  padding: 5rem 2rem;
+  min-height: 80vh;
+  background: var(--bg-light);
+}
+
+.page-title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.page-desc {
+  margin-bottom: 2rem;
+  color: var(--dark-text);
+  font-size: 1.1rem;
+}
+
+.ranking-container {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+#rankingTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+#rankingTable th,
+#rankingTable td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+#rankingTable th {
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+#rankingTable tr:nth-child(even) {
+  background: var(--bg-medium);
+}
+
+#rankingTable tr.highlight {
+  background: var(--accent-color) !important;
+  font-weight: 600;
+}
+
+.user-highlight {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.user-highlight h2 {
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}

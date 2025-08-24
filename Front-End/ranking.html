@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recicla+ | Ranking de Reciclagem</title>
+  <link rel="stylesheet" href="ranking.css">
+  <script src="https://kit.fontawesome.com/6b97982313.js" crossorigin="anonymous"></script>
+</head>
+<body>
+     <header id="header">
+      <div class="navegacao container">
+        <div class="logo">
+          <a href="#Home" aria-label="Início">
+            <img src="img/Logo-branca.png" alt="Logo Reclica+" />
+          </a>
+          <h3><span>Recicla</span>+</h3>
+        </div>
+
+        <button
+          class="menu-toggle"
+          id="menu"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          onclick="toggleMenu()"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav id="nav-menu" aria-label="Menu principal">
+          <ul>
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="registro.html">Registro</a></li>
+            <li><a href="mapa.html">Mapa</a></li>
+            <li><a href="calculadora.html">Calculadora</a></li>
+            <li><a href="ranking.html">Ranking</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+  <main class="main-section">
+    <div class="container">
+      <h1 class="page-title"><i class="fa-solid fa-trophy"></i> Ranking de Reciclagem</h1>
+      <p class="page-desc">Veja quem mais contribuiu para o meio ambiente neste mês!</p>
+
+      <!-- Ranking -->
+      <div class="ranking-container">
+        <table id="rankingTable">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Usuário</th>
+              <th>Total Reciclado (Kg)</th>
+              <th>Medalha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populado dinamicamente pelo JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Destaque do usuário -->
+      <div id="userHighlight" class="user-highlight">
+        <h2>Sua Posição</h2>
+        <p>Carregando...</p>
+      </div>
+    </div>
+  </main>
+
+     <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="logo">
+            <a href="#Home" aria-label="Voltar ao topo">
+              <img src="img/Logo-branca.png" alt="Logo Reclica+" />
+            </a>
+            <h3><span>Recicla</span>+</h3>
+          </div>
+
+          <div class="footer-info">
+            <p>Facilitando o descarte e a reciclagem de resíduos.</p>
+            <p>© 2025 Recicla+. Todos os direitos reservados.</p>
+          </div>
+
+          <div class="footer-links">
+            <div class="sociais">
+              <a href="#" aria-label="Facebook"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fa-brands fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <script src="ranking.js"></script>
+</body>
+</html>
