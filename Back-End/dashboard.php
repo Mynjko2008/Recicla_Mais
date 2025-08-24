@@ -1,4 +1,6 @@
 <?php
+include("conexao.php");
+
 // dashboard.php
 header("Content-Type: application/json");
 session_start();
