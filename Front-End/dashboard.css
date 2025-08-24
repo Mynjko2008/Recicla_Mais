@@ -410,3 +410,42 @@ div.enabled {
     font-size: 0.9rem;
   }
 }
+
+/* Estilos específicos para o menu hamburguer */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  color: var(--light-text);
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  #nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    z-index: 1000;
+  }
+
+  #nav-menu.active {
+    max-height: 300px;
+    box-shadow: var(--shadow-md);
+  }
+
+  #nav-menu ul {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+}
