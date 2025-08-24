@@ -2,47 +2,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const rankingTableBody = document.querySelector("#rankingTable tbody");
   const userHighlight = document.getElementById("userHighlight");
 
-  // 🔹 Mock de dados (simulação). Depois vem do banco.
-  const usuarios = [
-    { id: 1, nome: "Arthur", total: 120 },
-    { id: 2, nome: "Mariana", total: 95 },
-    { id: 3, nome: "Reinaldo", total: 80 },
-    { id: 4, nome: "Camila", total: 65 },
-    { id: 5, nome: "Lucas", total: 50 }
-  ];
+  fetch("../Back-End/ranking.php")
+    .then(res => res.json())
+    .then(data => {
+      if (data.sucesso) {
+        const top10 = data.top10;
+        const usuario = data.usuario;
 
-  // Usuário logado (simulação)
-  const usuarioLogadoId = 1;
+        rankingTableBody.innerHTML = "";
 
-  // Ordena por total reciclado
-  usuarios.sort((a, b) => b.total - a.total);
+        top10.forEach((user, index) => {
+          const tr = document.createElement("tr");
 
-  // Preenche tabela
-  usuarios.forEach((user, index) => {
-    const tr = document.createElement("tr");
+          let medalha = "";
+          if (index === 0) medalha = "🥇 Ouro";
+          else if (index === 1) medalha = "🥈 Prata";
+          else if (index === 2) medalha = "🥉 Bronze";
 
-    // Medalhas
-    let medalha = "";
-    if (index === 0) medalha = "🥇 Ouro";
-    else if (index === 1) medalha = "🥈 Prata";
-    else if (index === 2) medalha = "🥉 Bronze";
+          tr.innerHTML = `
+            <td>${index + 1}º</td>
+            <td>${user.nome}</td>
+            <td>${parseFloat(user.total_reciclado).toFixed(2)} kg</td>
+            <td>${medalha}</td>
+          `;
 
-    tr.innerHTML = `
-      <td>${index + 1}º</td>
-      <td>${user.nome}</td>
-      <td>${user.total} kg</td>
-      <td>${medalha}</td>
-    `;
+          if (usuario && user.usuario_id === usuario.usuario_id) {
+            tr.classList.add("highlight");
+          }
 
-    // Destaca usuário logado
-    if (user.id === usuarioLogadoId) {
-      tr.classList.add("highlight");
-      userHighlight.innerHTML = `
-        <h2>Sua Posição</h2>
-        <p>Você está em <b>${index + 1}º lugar</b> com <b>${user.total}kg</b> reciclados!</p>
-      `;
-    }
+          rankingTableBody.appendChild(tr);
+        });
 
-    rankingTableBody.appendChild(tr);
-  });
+        // Destaque do usuário logado
+        if (usuario) {
+          userHighlight.innerHTML = `
+            <h2>Sua Posição</h2>
+            <p>Você está em <b>${usuario.posicao}º lugar</b> com <b>${parseFloat(usuario.total_reciclado).toFixed(2)} kg</b> reciclados!</p>
+          `;
+        }
+
+      } else {
+        console.error("Erro ao carregar ranking:", data.mensagem);
+      }
+    })
+    .catch(err => console.error("Erro na requisição do ranking:", err));
 });
