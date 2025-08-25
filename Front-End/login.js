@@ -20,8 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const target = document.getElementById(targetId);
 
             // Alterna o tipo de input entre password e text
-            const isPassword = target.type === 'password';
-            target.type = isPassword ? 'text' : 'password';
+            target.type = target.type === 'password' ? 'text' : 'password';
 
             // Alterna o ícone entre olho e olho riscado
             this.classList.toggle('fa-eye');
@@ -29,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Validação do email em tempo real (quando o usuário sai do campo)
-    email.addEventListener('blur', function () {
+    // Validação do email em tempo real
+    email.addEventListener('input', function () {
         if (!validarEmail(email.value)) {
             emailError.textContent = 'Por favor, insira um e-mail válido';
         } else {
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         btnForm.disabled = true;
 
         // Requisição para o servidor
-        fetch('../Back-end/login.php', {
+        fetch('../Back-End/login.php', {
             method: 'POST',
             body: formData
         })
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Redirecionar após delay
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html'; 
+                            window.location.href = 'dashboard.html'; // Verifique se o caminho está correto
                         }, 2000);
                         break;
 
@@ -108,39 +107,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
 
                     default:
-                        // Criar elemento para mensagem de erro inesperado
-                        const errorMessage = document.createElement('div');
-                        errorMessage.className = 'error-server';
-                        errorMessage.textContent = 'Erro inesperado: ' + data;
-
-                        // Inserir antes do botão
-                        form.insertBefore(errorMessage, btnForm.parentNode);
-
-                        // Remover após 5 segundos
-                        setTimeout(() => {
-                            errorMessage.remove();
-                        }, 5000);
+                        exibirMensagemErro('Erro inesperado: ' + data);
                 }
             })
             .catch(error => {
                 console.error('Erro na requisição:', error);
-
-                // Restaurar botão
                 btnForm.textContent = btnText;
                 btnForm.disabled = false;
-
-                // Criar elemento para erro de conexão
-                const errorMessage = document.createElement('div');
-                errorMessage.className = 'error-server';
-                errorMessage.textContent = 'Erro de conexão com o servidor. Tente novamente mais tarde.';
-
-                // Inserir antes do botão
-                form.insertBefore(errorMessage, btnForm.parentNode);
-
-                // Remover após 5 segundos
-                setTimeout(() => {
-                    errorMessage.remove();
-                }, 5000);
+                exibirMensagemErro('Erro de conexão com o servidor. Tente novamente mais tarde.');
             });
     });
 
@@ -148,5 +122,20 @@ document.addEventListener('DOMContentLoaded', function () {
     function validarEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    }
+
+    // Função para exibir mensagens de erro
+    function exibirMensagemErro(mensagem) {
+        const errorMessage = document.createElement('div');
+        errorMessage.className = 'error-server';
+        errorMessage.textContent = mensagem;
+
+        // Inserir antes do botão
+        form.insertBefore(errorMessage, document.querySelector('.btn-form').parentNode);
+
+        // Remover após 5 segundos
+        setTimeout(() => {
+            errorMessage.remove();
+        }, 5000);
     }
 });

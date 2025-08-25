@@ -1,7 +1,6 @@
 <?php
 include("conexao.php");
 
-
 // Mensagens de erro
 const CAMPO_VAZIO = "campos_vazios";
 const SENHA_INVALIDA = "senha_invalida";
@@ -47,6 +46,20 @@ if (empty($nome) || empty($email) || empty($estado) || empty($senha)) {
 // Validação de senha no back-end
 if (!validarSenha($senha)) {
     echo SENHA_INVALIDA;
+    exit;
+}
+
+// Verificar se o email já existe
+$sql = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->bind_result($count);
+$stmt->fetch();
+$stmt->close();
+
+if ($count > 0) {
+    echo EMAIL_EXISTENTE;
     exit;
 }
 

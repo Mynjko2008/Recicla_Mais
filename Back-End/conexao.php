@@ -4,11 +4,21 @@ $db   = "recicla_plus"; // Nome do banco de dados
 $user = "root";        // Usuário do MySQL
 $pass = "";            // Senha do MySQL (no XAMPP geralmente é vazio)
 
-// Criar conexão
-$conn = new mysqli($host, $user, $pass, $db);
+// Habilitar relatórios de erro
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// Verificar conexão
-if ($conn->connect_error) {
-    die("❌ Conexão falhou: " . $conn->connect_error);
+try {
+    // Criar conexão
+    $conn = new mysqli($host, $user, $pass, $db);
+    echo "✅ Conexão bem-sucedida!";
+} catch (mysqli_sql_exception $e) {
+    // Tratar erro de conexão
+    echo "❌ Conexão falhou: " . $e->getMessage();
+    exit; // Encerra o script em caso de erro
 }
+
+
+
+// Fechar a conexão
+$conn->close();
 ?>

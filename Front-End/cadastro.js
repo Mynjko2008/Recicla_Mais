@@ -31,12 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         icon.addEventListener('click', function () {
             const targetId = this.getAttribute('data-target');
             const target = document.getElementById(targetId);
-            
-            // Alterna o tipo de input entre password e text
-            const isPassword = target.type === 'password';
-            target.type = isPassword ? 'text' : 'password';
-            
-            // Alterna o ícone entre olho e olho riscado
+            target.type = target.type === 'password' ? 'text' : 'password';
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
         });
@@ -45,43 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Validação em tempo real da senha
     senha.addEventListener('input', function() {
         const senhaValor = senha.value;
-        
-        // Validação de comprimento
-        if (senhaValor.length >= 8 && senhaValor.length <= 15) {
-            lengthReq.classList.add('valid');
-        } else {
-            lengthReq.classList.remove('valid');
-        }
-        
-        // Validação de letra maiúscula
-        if (/[A-Z]/.test(senhaValor)) {
-            uppercaseReq.classList.add('valid');
-        } else {
-            uppercaseReq.classList.remove('valid');
-        }
-        
-        // Validação de letra minúscula
-        if (/[a-z]/.test(senhaValor)) {
-            lowercaseReq.classList.add('valid');
-        } else {
-            lowercaseReq.classList.remove('valid');
-        }
-        
-        // Validação de número
-        if (/[0-9]/.test(senhaValor)) {
-            numberReq.classList.add('valid');
-        } else {
-            numberReq.classList.remove('valid');
-        }
-        
-        // Validação de caractere especial
-        if (/[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]]/.test(senhaValor)) {
-            specialReq.classList.add('valid');
-        } else {
-            specialReq.classList.remove('valid');
-        }
-        
-        // Verificar correspondência das senhas
+        validarRequisitosSenha(senhaValor);
         if (confirmarSenha.value) {
             validarSenhasIguais();
         }
@@ -89,6 +48,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Verificar se as senhas são iguais quando o usuário digita na confirmação
     confirmarSenha.addEventListener('input', validarSenhasIguais);
+
+    function validarRequisitosSenha(senhaValor) {
+        lengthReq.classList.toggle('valid', senhaValor.length >= 8 && senhaValor.length <= 15);
+        uppercaseReq.classList.toggle('valid', /[A-Z]/.test(senhaValor));
+        lowercaseReq.classList.toggle('valid', /[a-z]/.test(senhaValor));
+        numberReq.classList.toggle('valid', /[0-9]/.test(senhaValor));
+        specialReq.classList.toggle('valid', /[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]]/.test(senhaValor));
+    }
 
     function validarSenhasIguais() {
         if (senha.value !== confirmarSenha.value) {
@@ -100,11 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Validação do email
     email.addEventListener('blur', function() {
-        if (!validarEmail(email.value)) {
-            emailError.textContent = 'Por favor, insira um e-mail válido';
-        } else {
-            emailError.textContent = '';
-        }
+        emailError.textContent = validarEmail(email.value) ? '' : 'Por favor, insira um e-mail válido';
     });
 
     // Validação e envio do formulário
@@ -139,25 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validar senha
         const senhaValor = senha.value;
-        let senhaValida = true;
-        
-        if (senhaValor.length < 8 || senhaValor.length > 15) {
-            senhaValida = false;
-        }
-        if (!/[A-Z]/.test(senhaValor)) {
-            senhaValida = false;
-        }
-        if (!/[a-z]/.test(senhaValor)) {
-            senhaValida = false;
-        }
-        if (!/[0-9]/.test(senhaValor)) {
-            senhaValida = false;
-        }
-        if (!/[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]]/.test(senhaValor)) {
-            senhaValida = false;
-        }
-        
-        if (!senhaValida) {
+        if (!validarSenha(senhaValor)) {
             senhaError.textContent = 'A senha não atende a todos os requisitos';
             isValid = false;
         }
@@ -171,75 +116,37 @@ document.addEventListener('DOMContentLoaded', function () {
         // Se tudo estiver válido, enviar o formulário
         if (isValid) {
             const formData = new FormData(form);
-
-            // Mostrar mensagem de loading
             const btnForm = document.querySelector('.btn-form');
             const btnText = btnForm.textContent;
             btnForm.textContent = 'Cadastrando...';
             btnForm.disabled = true;
 
-            fetch('../Back-end/cadastro.php', {
+            fetch('../Back-End/cadastro.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
-                // Restaurar botão
                 btnForm.textContent = btnText;
                 btnForm.disabled = false;
                 
                 if (data.trim() === 'success') {
-                    // Criar elemento para mensagem de sucesso
                     const successMessage = document.createElement('div');
                     successMessage.className = 'success-message';
                     successMessage.textContent = '✅ Cadastro realizado com sucesso! Redirecionando...';
-                    
-                    // Inserir antes do botão
                     form.insertBefore(successMessage, btnForm.parentNode);
-                    
-                    // Redirecionar após delay
                     setTimeout(() => {
                         window.location.href = 'login.html';
                     }, 2000);
                 } else {
-                    // Tratar erros do servidor
-                    if (data.includes('email')) {
-                        emailError.textContent = 'Este e-mail já está cadastrado';
-                    } else {
-                        // Criar elemento para mensagem de erro
-                        const errorMessage = document.createElement('div');
-                        errorMessage.className = 'error-server';
-                        errorMessage.textContent = 'Erro: ' + data;
-                        
-                        // Inserir antes do botão
-                        form.insertBefore(errorMessage, btnForm.parentNode);
-                        
-                        // Remover após 5 segundos
-                        setTimeout(() => {
-                            errorMessage.remove();
-                        }, 5000);
-                    }
+                    tratarErroServidor(data, btnForm);
                 }
             })
             .catch(error => {
                 console.error('Erro na requisição:', error);
-                
-                // Restaurar botão
                 btnForm.textContent = btnText;
                 btnForm.disabled = false;
-                
-                // Exibir mensagem de erro
-                const errorMessage = document.createElement('div');
-                errorMessage.className = 'error-server';
-                errorMessage.textContent = 'Erro de conexão com o servidor. Tente novamente mais tarde.';
-                
-                // Inserir antes do botão
-                form.insertBefore(errorMessage, btnForm.parentNode);
-                
-                // Remover após 5 segundos
-                setTimeout(() => {
-                    errorMessage.remove();
-                }, 5000);
+                exibirMensagemErro('Erro de conexão com o servidor. Tente novamente mais tarde.', btnForm);
             });
         }
     });
@@ -248,5 +155,34 @@ document.addEventListener('DOMContentLoaded', function () {
     function validarEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    }
+
+    // Função para validar senha
+    function validarSenha(senhaValor) {
+        return senhaValor.length >= 8 && senhaValor.length <= 15 &&
+               /[A-Z]/.test(senhaValor) &&
+               /[a-z]/.test(senhaValor) &&
+               /[0-9]/.test(senhaValor) &&
+               /[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]]/.test(senhaValor);
+    }
+
+    // Função para tratar erros do servidor
+    function tratarErroServidor(data, btnForm) {
+        if (data.includes('email')) {
+            emailError.textContent = 'Este e-mail já está cadastrado';
+        } else {
+            exibirMensagemErro('Erro: ' + data, btnForm);
+        }
+    }
+
+    // Função para exibir mensagens de erro
+    function exibirMensagemErro(mensagem, btnForm) {
+        const errorMessage = document.createElement('div');
+        errorMessage.className = 'error-server';
+        errorMessage.textContent = mensagem;
+        form.insertBefore(errorMessage, btnForm.parentNode);
+        setTimeout(() => {
+            errorMessage.remove();
+        }, 5000);
     }
 });
