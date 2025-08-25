@@ -1,4 +1,6 @@
 <?php
+include("conexao.php");
+
 // registro.php
 header("Content-Type: application/json");
 session_start();
@@ -43,6 +45,13 @@ try {
         $unidade = $_POST['unidade'];
         $local = trim($_POST['local']);
         $data = $_POST['data'];
+
+        // Verificar se a data está no formato correto
+        $dataFormatada = DateTime::createFromFormat('Y-m-d', $data);
+        if (!$dataFormatada) {
+            echo json_encode(["sucesso" => false, "mensagem" => "Data inválida. Use o formato YYYY-MM-DD."]);
+            exit;
+        }
 
         $sql = "INSERT INTO registros_descarte (usuario_id, categoria_id, quantidade, unidade, local_descarte, data_descarte)
                 VALUES (:usuario_id, :categoria, :quantidade, :unidade, :local, :data)";

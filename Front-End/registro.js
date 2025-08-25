@@ -77,6 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const formData = new FormData(form);
 
+    // Verificar se todos os campos obrigatórios estão preenchidos
+    if (!formData.get('categoria') || !formData.get('quantidade') || !formData.get('unidade') || !formData.get('local') || !formData.get('data')) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
     fetch("../Back-End/registro.php", { method: "POST", body: formData })
       .then(res => res.json())
       .then(data => {

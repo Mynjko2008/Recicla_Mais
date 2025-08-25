@@ -25,18 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // === Atualizar Cards ===
       if (dados.cards) {
-        document.getElementById(
-          "total-reciclado"
-        ).textContent = `${dados.cards.total_reciclado} kg`;
+        const totalRecicladoElem = document.getElementById("total-reciclado");
+        const co2EvitadoElem = document.getElementById("co2-evitado");
+        const posicaoRankingElem = document.getElementById("posicao-ranking");
 
-        document.getElementById(
-          "co2-evitado"
-        ).textContent = `${dados.cards.co2_evitado.toFixed(2)} kg`;
+        if (totalRecicladoElem) {
+          totalRecicladoElem.textContent = `${dados.cards.total_reciclado} kg`;
+        }
 
-        document.getElementById("posicao-ranking").textContent = dados.cards
-          .posicao
-          ? `${dados.cards.posicao}º lugar`
-          : "--";
+        if (co2EvitadoElem) {
+          co2EvitadoElem.textContent = `${dados.cards.co2_evitado.toFixed(2)} kg`;
+        }
+
+        if (posicaoRankingElem) {
+          posicaoRankingElem.textContent = dados.cards.posicao
+            ? `${dados.cards.posicao}º lugar`
+            : "--";
+        }
       }
 
       // === Gráfico de Pizza ===
@@ -81,20 +86,22 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((error) => {
       console.error("Erro:", error);
     });
-});
 
-// Função para alternar o menu hamburguer
-function toggleMenu() {
-  const navMenu = document.getElementById("nav-menu");
-  const menuBtn = document.getElementById("menu");
+  // Função para alternar o menu hamburguer
+  const toggleMenu = () => {
+    const navMenu = document.getElementById("nav-menu");
+    const menuBtn = document.getElementById("menu");
 
-  navMenu.classList.toggle("active");
-  const isExpanded = menuBtn.getAttribute("aria-expanded") === "true";
-  menuBtn.setAttribute("aria-expanded", !isExpanded);
-}
+    if (navMenu) {
+      navMenu.classList.toggle("active");
+    }
+    if (menuBtn) {
+      const isExpanded = menuBtn.getAttribute("aria-expanded") === "true";
+      menuBtn.setAttribute("aria-expanded", !isExpanded);
+    }
+  };
 
-// Fechar o menu ao clicar em um link (em dispositivos móveis)
-document.addEventListener("DOMContentLoaded", () => {
+  // Fechar o menu ao clicar em um link (em dispositivos móveis)
   const menuLinks = document.querySelectorAll("#nav-menu a");
   menuLinks.forEach((link) => {
     link.addEventListener("click", () => {
@@ -102,8 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const navMenu = document.getElementById("nav-menu");
         const menuBtn = document.getElementById("menu");
 
-        navMenu.classList.remove("active");
-        menuBtn.setAttribute("aria-expanded", "false");
+        if (navMenu) {
+          navMenu.classList.remove("active");
+        }
+        if (menuBtn) {
+          menuBtn.setAttribute("aria-expanded", "false");
+        }
       }
     });
   });
