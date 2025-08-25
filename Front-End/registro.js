@@ -25,10 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   pontos.forEach(p => {
-    L.marker(p.coords)
+    const marker = L.marker(p.coords)
       .bindPopup(`<b>${p.nome}</b><br>Categoria: ${p.categoria}`)
       .addTo(map);
+
+    // Adiciona evento de clique ao marcador
+    marker.on("click", () => {
+      localInput.value = p.nome; // Preenche o campo local com o nome do ponto de coleta
+    });
   });
+
 
   // Marcador temporário ao clicar no mapa
   let marker;
