@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Redirecionar após delay
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html'; // Verifique se o caminho está correto
+                            window.location.href = 'dashboard.html';
                         }, 2000);
                         break;
 
